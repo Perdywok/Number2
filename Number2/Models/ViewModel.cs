@@ -7,32 +7,16 @@ namespace Number2.Models
 {
     public class ViewModel
     {
-        public Book Book { get; set; }
-
         public IEnumerable<Author> AllAuthors { get; set; }
 
+        public int BookId { get; set; }
+        public string BookName { get; set; }
+        public int Pages { get; set; }
+        public string Content { get; set; }
+        /*
+        private List<Author> _selectedAuthors;
 
-        public string BookName
-        {
-            get { return Book.BookName; }
-            set { Book.BookName = value; }
-        }
-
-        public int Pages
-        {
-            get { return Book.Pages; }
-            set { Book.Pages = value; }
-        }
-
-        public string Content
-        {
-            get { return Book.Content; }
-            set { Book.Content = value; }
-        }
-
-        private List<int> _selectedAuthors;
-
-        public List<int> SelectedAuthors
+        public List<Author> SelectedAuthors
         {
             get
             {
@@ -44,5 +28,6 @@ namespace Number2.Models
             }
             set { _selectedAuthors = value; }
         }
+        */
     }
 }

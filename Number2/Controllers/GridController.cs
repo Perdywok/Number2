@@ -23,14 +23,22 @@ namespace Number2.Controllers
 
         public ActionResult Books_Read([DataSourceRequest]DataSourceRequest request)
         {
-            IQueryable<Book> books = db.Books.Include(i=>i.Authors);
+            IQueryable<Book> books = GetBooks();
             DataSourceResult result = books.ToDataSourceResult(request, c => new ViewModel
             {
-                Book = c,
+                BookId = c.BookId,
+                BookName = c.BookName,
+                Content = c.Content,
+                Pages = c.Pages,
                 AllAuthors = c.Authors
             });
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        private IQueryable<Book> GetBooks()
+        {
+            return db.Books.Include(i => i.Authors);
         }
 
         protected override void Dispose(bool disposing)
