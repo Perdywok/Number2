@@ -1,0 +1,16 @@
+﻿
+@(Html.Kendo().Grid<Number2.Models.ViewModel>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.BookName);
+          columns.Bound(c => c.Content);
+          columns.Bound(c => c.Pages);
+          columns.Bound(c => c.AllAuthors);
+      })
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("Books_Read", "Grid"))
+      )
+)
