@@ -27,20 +27,15 @@ namespace Number2.Controllers
             
             IQueryable<Book> books = GetBooks();
             DataSourceResult result = books.ToDataSourceResult(request, c => new ViewModel
-            {              /*
+            {              
+
                 BookId = c.BookId,
-                BookName = c.BookName,
-                Content = c.Content,
-                Pages = c.Pages,
-                AllAuthors = c.Authors
-                */
-                BookId = c.BookId,
-                AuthorNames = c.Authors.
+                BookName=c.BookName,
+                AuthorName = c.Authors.First().AuthorName
             });
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
         private IQueryable<Book> GetBooks()
         {
             return db.Books.Include(i => i.Authors);

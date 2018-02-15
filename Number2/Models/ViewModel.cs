@@ -9,8 +9,9 @@ namespace Number2.Models
     public class ViewModel
     {
         public int BookId { get; set; }
-        public List<string> AuthorNames { get; set; }
-        //public string[] AuthorNames { get; set; }
+        //public List<string> AuthorNames { get; set; }
+        public string AuthorName { get; set; }
+        public string BookName { get; set; }
         //public Book Book { get; set; }
         //public List<Book> Books { get; set; }
         //public List<Author> Authors { get; set; }

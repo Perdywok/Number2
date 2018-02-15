@@ -3,15 +3,17 @@
               .Name("grid")
               .Columns(columns =>
               {
-                  /*
+
                   columns.Bound(c => c.BookId);
                   columns.Bound(c => c.BookName);
+                  columns.Bound(c => c.AuthorName);
+                  //columns.Bound(c=>c.AuthorName).EditorTemplateName("AuthorsListEditor").Template(p => p.RoleList);
+                  /*
                   columns.Bound(c => c.Content);
                   columns.Bound(c => c.Pages);
                   columns.Bound(c => c.AllAuthors);
     */
-                  columns.Bound(c => c.Book);
-                  columns.Bound(c => c.Authors);
+
               })
               .NoRecords("No records found.")
               .Scrollable()
