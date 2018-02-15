@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Newtonsoft.Json;
 using Number2.Models;
 
 namespace Number2.Controllers
@@ -23,14 +24,18 @@ namespace Number2.Controllers
 
         public ActionResult Books_Read([DataSourceRequest]DataSourceRequest request)
         {
+            
             IQueryable<Book> books = GetBooks();
             DataSourceResult result = books.ToDataSourceResult(request, c => new ViewModel
-            {
+            {              /*
                 BookId = c.BookId,
                 BookName = c.BookName,
                 Content = c.Content,
                 Pages = c.Pages,
                 AllAuthors = c.Authors
+                */
+                BookId = c.BookId,
+                AuthorNames = c.Authors.
             });
 
             return Json(result, JsonRequestBehavior.AllowGet);

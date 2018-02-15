@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Number2.Models
@@ -22,6 +23,7 @@ namespace Number2.Models
 
         public Genre Genre { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Author> Authors { get; set; }
 
 
