@@ -12,7 +12,7 @@ namespace Number2.Models
 
         public string BookName { get; set; }
 
-        public int? Pages { get; set; }
+        public int Pages { get; set; }
 
         public Genre Genre { get; set; }
 

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -32,7 +34,7 @@ namespace Number2.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        /*
+        
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Books_Create([DataSourceRequest]DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<ViewModel> books)
         {
@@ -47,7 +49,7 @@ namespace Number2.Controllers
                             Pages = book.Pages,
                             Genre = book.Genre,
                             Publisher = book.Publisher,
-
+                            Authors = book.Authors
                     };
 
                     db.Books.Add(entity);
@@ -62,7 +64,7 @@ namespace Number2.Controllers
                 Pages = book.Pages,
                 Genre = book.Genre,
                 Publisher = book.Publisher,
-  
+                Authors = book.Authors.ToList()
             }));
         }
 
@@ -81,7 +83,7 @@ namespace Number2.Controllers
                         Pages = book.Pages,
                         Genre = book.Genre,
                         Publisher = book.Publisher,
-
+                        Authors = book.Authors
                     };
 
                     entities.Add(entity);
@@ -97,7 +99,7 @@ namespace Number2.Controllers
                 Pages = book.Pages,
                 Genre = book.Genre,
                 Publisher = book.Publisher,
-  
+                Authors = book.Authors.ToList()
             }));
         } 
 
@@ -116,7 +118,7 @@ namespace Number2.Controllers
                         Pages = book.Pages,
                         Genre = book.Genre,
                         Publisher = book.Publisher,
-   
+                        Authors = book.Authors
                     };
 
                     entities.Add(entity);
@@ -132,10 +134,10 @@ namespace Number2.Controllers
                 Pages = book.Pages,
                 Genre = book.Genre,
                 Publisher = book.Publisher,
-     
+                Authors = book.Authors.ToList()
             }));
         }
-        */
+        
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
