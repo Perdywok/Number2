@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace Number2.Models
 {
@@ -23,7 +20,6 @@ namespace Number2.Models
             {
                 BookId = 1,
                 BookName = "Операционные системы",
-                Content = "SomeContent",
                 Pages = 250,
                 Genre = Genre.Drama,
                 Authors = new List<Author>() { s1, s2, s3 }
@@ -32,7 +28,6 @@ namespace Number2.Models
             {
                 BookId = 2,
                 BookName = "Алгоритмы и структуры данных",
-                Content = "SomeContent",
                 Pages = 250,
                 Genre = Genre.Drama,
                 Authors = new List<Author>() { s2, s4 }

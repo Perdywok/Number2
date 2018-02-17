@@ -1,39 +1,50 @@
-﻿
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
 @(Html.Kendo().Grid<Number2.Models.ViewModel>()
-              .Name("grid")
-              .Columns(columns =>
-              {
+            .Name("grid")
+            .Columns(columns =>
+            {
+                columns.Bound(e => e.BookId);
+                columns.Bound(e => e.Pages);
+                columns.Bound(e => e.Genre);
+                columns.Bound(e => e.Publisher);
+                columns.Bound(e => e.Authors).ClientTemplate(
 
-                  columns.Bound(c => c.BookId);
-                  columns.Bound(c => c.BookName);
-                  columns.Bound(c => c.AuthorName);
-                  //columns.Bound(c=>c.AuthorName).EditorTemplateName("AuthorsListEditor").Template(p => p.RoleList);
-                  /*
-                  columns.Bound(c => c.Content);
-                  columns.Bound(c => c.Pages);
-                  columns.Bound(c => c.AllAuthors);
-    */
-
-              })
-              .NoRecords("No records found.")
-              .Scrollable()
-              .DataSource(dataSource => dataSource
-                  .Ajax()
-                  .Read(read => read.Action("Books_Read", "Grid"))
-                  .Model(model =>
-                  {
-
-                      //model.Id(book => book.BookId);
-
-                      //Declare a model field and optionally specify its default value (used when a new model instance is created).
-                      //model.Field(product => product.ProductName).DefaultValue("N/A");
-                  })
-              )
+                     Html.Kendo().MultiSelect().Name("multi#=BookId#")
+                        .DataTextField("AuthorName")
+                        .DataValueField("AuthorId")
+                        .BindTo((IEnumerable<Number2.Models.Author>)ViewData["authors"]) /*TaskSecond.Models.ViewModel*/
+                        .Events(e => e.Change("change"))
+                        .ToClientTemplate().ToHtmlString()
+                    );
+            })
+            .Pageable()
+            .Events(e => e.DataBound("dataBound"))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(5)
+                .Read(read => read.Action("Books_Read", "Grid"))
+                .ServerOperation(false))
 )
-<script>
-    $(function() {
-        //Notice that the Name() of the Grid is used to get its client-side instance.
-        var grid = $("#grid").data("kendoGrid");
-        
-    });
+
+<script type="text/javascript">
+    function dataBound(e) {
+        var grid = this;
+        grid.tbody.children().each(function () {
+            var dataitem = grid.dataItem(this),
+                row = $(this);
+            eval(row.find("script").html());
+            //var multiSelect = $("#multiselect").data("kendoMultiSelect");
+            var multiSelect = $(this).find("select").data("kendoMultiSelect");
+            multiSelect.value(dataitem.Authors.map(function (i) { return i.AuthorId }));
+        });
+    }
+
+    function change(e) {
+        var row = this.element.closest("tr"),
+            model = $("#grid").data("kendoGrid").dataItem(row);
+        model.set("Authors", this.dataItems());
+    }
 </script>

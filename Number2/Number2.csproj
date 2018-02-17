@@ -216,6 +216,14 @@
     <Compile Include="Migrations\201802141318360_First.Designer.cs">
       <DependentUpon>201802141318360_First.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802170803380_Second.cs" />
+    <Compile Include="Migrations\201802170803380_Second.Designer.cs">
+      <DependentUpon>201802170803380_Second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802170823379_Third.cs" />
+    <Compile Include="Migrations\201802170823379_Third.Designer.cs">
+      <DependentUpon>201802170823379_Third.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -301,7 +309,7 @@
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Grid\Index.cshtml" />
-    <Content Include="Views\Grid\AuthorsListEditor.cshtml" />
+    <Content Include="Views\Grid\AuthorsEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -325,6 +333,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802141318360_First.resx">
       <DependentUpon>201802141318360_First.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802170803380_Second.resx">
+      <DependentUpon>201802170803380_Second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802170823379_Third.resx">
+      <DependentUpon>201802170823379_Third.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

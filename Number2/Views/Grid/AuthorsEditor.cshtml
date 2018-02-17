@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Number2.Models.ViewModel>
+
+@(
+            Html.Kendo().MultiSelectFor(m => m)
+                .DataTextField("AuthorName")
+                .DataValueField("AuthorId")
+                .BindTo((IEnumerable<Number2.Models.ViewModel>)ViewData["authors"])
+)
