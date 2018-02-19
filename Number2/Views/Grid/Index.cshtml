@@ -20,6 +20,7 @@
                         .ToClientTemplate().ToHtmlString()
                     );
                 columns.Command(command => command.Destroy()).Width(150);
+                
             })
             .ToolBar(toolbar => {
                 toolbar.Create();
@@ -37,7 +38,8 @@
                 model.Field(p => p.Pages).DefaultValue(0);
                 model.Field(p => p.Genre).DefaultValue(0);
                 model.Field(p => p.Publisher).DefaultValue("");
-                model.Field(p => p.Publisher).DefaultValue(new List<Number2.Models.Author>());// хочет стринг, надо посмотреть как правильно настроить
+                model.Field(p => p.Authors).DefaultValue(
+                    ViewData["defaultAuthors"] as Number2.Models.Author);
             })
                 .PageSize(5)
                  .Read(read => read.Action("Books_Read", "Grid"))

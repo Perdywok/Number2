@@ -10,7 +10,7 @@ namespace Number2.Models
         {
 
         }
-        [Required]
+        [ScaffoldColumn(false)]
         public int BookId { get; set; }
 
         [Display(Name = "Book Name")]

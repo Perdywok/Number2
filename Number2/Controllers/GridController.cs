@@ -14,7 +14,37 @@ namespace Number2.Controllers
 
         public ActionResult Index()
         {
+            var temp = db.Authors.FirstOrDefault();
+            List<Author> author = new List<Author>();
+            author.Add(temp);
+            ViewData["defaultAuthors"] = author;
             ViewData["authors"] = db.Authors;
+            /*
+            ViewData["defaultAuthors"] = (from a in db.Authors
+                            where a.AuthorId == 0
+                        select new Author
+                        {
+                            AuthorId = a.AuthorId,
+                            AuthorName = a.AuthorName
+                        }).FirstOrDefault();
+                        */
+            /*ViewData["defaultAuthors"] = new Author
+            {
+                AuthorId = temp.AuthorId,
+                AuthorName = temp.AuthorName
+            };*/
+            /*
+            var summary = db.BillHistories.FirstOrDefault(a => a.CustomerId == customerNumber && a.DueDate == dt && a.Type == "BILL").Select(x => new BillSummary
+                           {
+                               Id = a.Id,
+                               CustomerId = a.CustomerId,
+                               DueDate = a.DueDate,
+                               PreviousBalance = a.PreviousBalance.Value,
+                               TotalBill = a.TotalBill.Value,
+                               Type = a.Type,
+                               IsFinalBill = a.IsFinalBill
+                           });
+                           */
             return View();
         }
 
@@ -28,28 +58,29 @@ namespace Number2.Controllers
                 Pages = c.Pages,
                 Genre = c.Genre,
                 Publisher = c.Publisher,
-                Authors = c.Authors.ToList()// test
+                Authors = new List<Author>(c.Authors)
+                // c.Authors.ToList()
 
             });
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Books_Create([DataSourceRequest]DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<ViewModel> books)
         {
             var entities = new List<Book>();
             if (books != null && ModelState.IsValid)
             {
-                foreach(var book in books)
+                foreach (var book in books)
                 {
                     var entity = new Book
                     {
-                            BookName = book.BookName,
-                            Pages = book.Pages,
-                            Genre = book.Genre,
-                            Publisher = book.Publisher,
-                            Authors = book.Authors
+                        BookName = book.BookName,
+                        Pages = book.Pages,
+                        Genre = book.Genre,
+                        Publisher = book.Publisher,
+                        Authors = new List<Author>(book.Authors)
                     };
 
                     db.Books.Add(entity);
@@ -64,17 +95,18 @@ namespace Number2.Controllers
                 Pages = book.Pages,
                 Genre = book.Genre,
                 Publisher = book.Publisher,
-                Authors = book.Authors.ToList()
+                Authors = new List<Author>(book.Authors)
             }));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Books_Update([DataSourceRequest]DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<ViewModel> books)
         {
+
             var entities = new List<Book>();
             if (books != null && ModelState.IsValid)
             {
-                foreach(var book in books)
+                foreach (var book in books)
                 {
                     var entity = new Book
                     {
@@ -83,14 +115,15 @@ namespace Number2.Controllers
                         Pages = book.Pages,
                         Genre = book.Genre,
                         Publisher = book.Publisher,
-                        Authors = book.Authors
+                        Authors = new List<Author>(book.Authors)
                     };
 
                     entities.Add(entity);
                     db.Books.Attach(entity);
-                    db.Entry(entity).State = EntityState.Modified;                        
+                    db.Entry(entity).State = EntityState.Modified;
                 }
                 db.SaveChanges();
+
             }
 
             return Json(entities.ToDataSourceResult(request, ModelState, book => new ViewModel
@@ -99,9 +132,9 @@ namespace Number2.Controllers
                 Pages = book.Pages,
                 Genre = book.Genre,
                 Publisher = book.Publisher,
-                Authors = book.Authors.ToList()
+                Authors = new List<Author>(book.Authors)
             }));
-        } 
+        }
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Books_Destroy([DataSourceRequest]DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<ViewModel> books)
@@ -109,7 +142,7 @@ namespace Number2.Controllers
             var entities = new List<Book>();
             if (ModelState.IsValid)
             {
-                foreach(var book in books)
+                foreach (var book in books)
                 {
                     var entity = new Book
                     {
@@ -118,7 +151,7 @@ namespace Number2.Controllers
                         Pages = book.Pages,
                         Genre = book.Genre,
                         Publisher = book.Publisher,
-                        Authors = book.Authors
+                        Authors = new List<Author>(book.Authors)
                     };
 
                     entities.Add(entity);
@@ -134,10 +167,10 @@ namespace Number2.Controllers
                 Pages = book.Pages,
                 Genre = book.Genre,
                 Publisher = book.Publisher,
-                Authors = book.Authors.ToList()
+                Authors = new List<Author>(book.Authors)
             }));
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
